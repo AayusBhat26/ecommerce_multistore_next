@@ -1,13 +1,19 @@
+"use client"
 import { Button } from "@/components/ui/button";
+import { Modal } from "@/components/ui/modal";
 import { UserButton } from "@clerk/nextjs";
 import { defaultConfig } from "next/dist/server/config-shared";
 
-const SetupPage = ()=> {
+const SetupPage = () => {
       return (
-            // <p>hello this is admin dashboard</p>
-            <div>
-                  {/* <p>this is a protected route.</p> */}
-                  <UserButton afterSignOutUrl="/"/>
+            // admin dashboard page.
+            <div className="p-4">
+                  {/* <UserButton afterSignOutUrl="/"/> */}
+                  <Modal isOpen={true} onClose={() => { }} title="
+                  test" description="test desc">
+                        Children
+                  </Modal>
+
             </div>
       )
 }
