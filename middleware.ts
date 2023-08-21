@@ -8,3 +8,5 @@ export default authMiddleware({});
 export const config = {
   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 };
+
+// this folder structure is used to be compatible with clerk.
