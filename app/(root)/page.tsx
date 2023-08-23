@@ -1,4 +1,6 @@
 "use client"
+// admin dashboard page.
+
 import { useEffect } from "react";
 
 
@@ -14,9 +16,7 @@ const SetupPage = () => {
             if(!isOpen) onOpen();
       },[isOpen, onOpen]);
       return (
-            // admin dashboard page.
             <div className="p-4">
-                  {/* <UserButton afterSignOutUrl="/"/> */}
                 Root page
 
             </div>
