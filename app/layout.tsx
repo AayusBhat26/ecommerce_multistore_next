@@ -7,6 +7,7 @@ import { ModalProvider } from '@/providers/modal-provider'
 
 
 import './globals.css'
+import primsadb from '@/lib/prismadb'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // const store =  primsadb.store
   return (
     <ClerkProvider>
     <html lang="en"> 
