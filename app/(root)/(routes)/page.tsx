@@ -10,16 +10,13 @@ import { useStoreModal } from "@/hooks/use-store-modal";
 
 const SetupPage = () => {
       // extracting the onOpen and onClose functions from zustand
+
+      // using the setuppage for triggering the modal.
       const onOpen = useStoreModal((state) => state.onOpen);
       const isOpen = useStoreModal((state) => state.isOpen);
       useEffect(()=>{
             if(!isOpen) onOpen();
       },[isOpen, onOpen]);
-      return (
-            <div className="p-4">
-                Root page
-
-            </div>
-      )
+      return null
 }
 export default SetupPage;

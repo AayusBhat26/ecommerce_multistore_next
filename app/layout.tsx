@@ -8,6 +8,7 @@ import { ModalProvider } from '@/providers/modal-provider'
 
 import './globals.css'
 import primsadb from '@/lib/prismadb'
+import { ToastProvider } from '@/providers/toast-provider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -23,9 +24,13 @@ export default function RootLayout({
   // const store =  primsadb.store
   return (
     <ClerkProvider>
-    <html lang="en"> 
-      <body className={inter.className}><ModalProvider/>{children}</body>
-    </html>
+      <html lang="en">
+        <body className={inter.className}>
+          <ToastProvider/>
+          <ModalProvider />
+          {children}
+        </body>
+      </html>
     </ClerkProvider>
   )
 }
