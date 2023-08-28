@@ -55,8 +55,8 @@ export const StoreModal = () => {
                   onClose={storeModal.onClose}
             >
                   {/* Create Store Form */}
-                  <div>
-                        <div className="space-y-4 py-2 pb-4">
+                  <div >
+                        <div className="space-y-4 py-2 pb-4 ">
                               <Form {...form}>
                                     <form onSubmit={form.handleSubmit(onSubmit)}>
                                           <FormField control={form.control} name="name" render={({ field }) => (

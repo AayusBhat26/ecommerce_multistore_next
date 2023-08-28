@@ -22,10 +22,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   // const store =  primsadb.store
+  // main file.
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
+      <html lang="en" >
+        <body className={`${inter.className} `}>
           <ToastProvider/>
           <ModalProvider />
           {children}

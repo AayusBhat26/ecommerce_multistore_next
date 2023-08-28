@@ -1,4 +1,6 @@
 // global imports
+// import Navbar from "@/components/navbar";
+import Navbar from "@/components/Navbar";
 import primsadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs"
 import { redirect } from "next/navigation";
@@ -22,10 +24,9 @@ export default async function DashboardLayout({
       if (!store) redirect('/')
       return (
             <>
-            <div>navbar
+            <Navbar />
                   {children}
 
-            </div>
             </>
       )
 }
