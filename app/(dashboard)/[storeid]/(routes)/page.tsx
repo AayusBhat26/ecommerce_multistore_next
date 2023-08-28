@@ -6,14 +6,22 @@ interface DashboardPageProps {
       }
 };
 const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
+      // const store = await primsadb.store.findFirst({
+      //       where: {
+      //             id: params.storeid,
+      //       }
+      // })
       const store = await primsadb.store.findFirst({
-            where: {
-                  id: params.storeId,
+            where:{
+                  id:params.storeid
             }
       })
+      // console.log(params);
+      
       return (
             <div >
-                  Active Store: {store?.name}
+                  Active Store: {store?.id}
+                  
             </div>
       )
 }

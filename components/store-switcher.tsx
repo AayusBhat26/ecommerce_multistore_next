@@ -32,7 +32,13 @@ export default function StoreSwitcher({
             value: item.id
       }));
       const [open, setOpen] = useState(false)
-      const currentStore = formattedItems.find((item) => item.value === params.storeId);
+      const currentStore = formattedItems.find((item) => item.value === params.storeid);
+      // const currentStore = formattedItems.map((single)=>single.value===params.storeId
+            
+
+      // )
+      // console.log(currentStore);
+      
       const onStoreSelect = (store: {
             value: string,
             label: string
@@ -52,7 +58,7 @@ export default function StoreSwitcher({
                               className={cn("w-[200px] justify-between", className)}
                         >
                               <Warehouse className="mr-2 h-4 w-4" />
-                              Stores
+                              {currentStore?.label}
                               <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                   </PopoverTrigger>
@@ -61,38 +67,38 @@ export default function StoreSwitcher({
                               <CommandList>
                                     <CommandInput placeholder="Search Store..." />
                                     <CommandEmpty>No Store Found
-                                           Create A New One</CommandEmpty>
-                                           <CommandGroup heading='Stores'>
-                                              {
-                                                formattedItems.map((store)=>(
-                                                      <CommandItem key={store.value} 
-                                                      onSelect={()=>onStoreSelect(store)} 
-                                                      className="text-sm"
-                                                      
+                                          Create A New One</CommandEmpty>
+                                    <CommandGroup heading='Stores'>
+                                          {
+                                                formattedItems.map((store) => (
+                                                      <CommandItem key={store.value}
+                                                            onSelect={() => onStoreSelect(store)}
+                                                            className="text-sm"
+
                                                       >
                                                             <StoreIcon className="mr-2 h-4 w-4" />{
                                                                   store.label
                                                             }
-                                                            <Check 
-                                                            className={cn(
-                                                                  "ml-auto h-4 w-4", 
-                                                                  currentStore?.value === store.value ? "opacity-100" : "opacity-0"
-                                                            )}
+                                                            <Check
+                                                                  className={cn(
+                                                                        "ml-auto h-4 w-4",
+                                                                        currentStore?.value === store.value ? "opacity-100" : "opacity-0"
+                                                                  )}
                                                             />
                                                       </CommandItem>
 
                                                 ))
-                                              }
-                                           </CommandGroup>
+                                          }
+                                    </CommandGroup>
                               </CommandList>
                               <CommandSeparator />
                               <CommandList>
                                     <CommandGroup>
-                                          <CommandItem onSelect={()=>{
+                                          <CommandItem onSelect={() => {
                                                 setOpen(false)
-                                                storeModal.onOpen();
+                                                storeModal.onOpen()
                                           }}>
-                                                <PlusCircleIcon className="mr-2 h-5 w-5"/>
+                                                <PlusCircleIcon className="mr-2 h-5 w-5" />
                                                 Create Store
                                           </CommandItem>
                                     </CommandGroup>
