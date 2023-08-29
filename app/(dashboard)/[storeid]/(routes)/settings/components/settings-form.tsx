@@ -16,6 +16,8 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modals/alert-modal";
+import { ApiAlert } from "@/components/ui/api-alert";
+import { useOrigin } from "@/hooks/use-origin";
 // import {  } from "next/router";
 interface SettingsFormProps {
       initialData: Store;
@@ -31,6 +33,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
 }) => {
       const params = useParams();
       const router = useRouter();
+      const origin = useOrigin();
       const [open, setOpen] = useState(false);
       const [loading, setLoading] = useState(false);
       const form = useForm<SettingsFormValues>({
@@ -71,7 +74,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
 
 
       return (
-            <>
+            <div className="bg-blue-50 p-4">
                   <AlertModal
                         isOpen={open}
                         onClose={() => setOpen(false)}
@@ -99,9 +102,12 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
                                     )} />
 
                               </div>
-                              <Button disabled={loading} type={"submit"}> Save Changes</Button>
+                              <Button disabled={loading} type={"submit"} > Save Changes</Button>
                         </form>
                   </Form>
-            </>
+                  <Separator className="mb-4 mt-4" />
+                  <p className="text-sm text-gray-500">( These links are only useful when you have your own frontend service provider/s )</p>
+                  <ApiAlert title="NEXT_PUBLIC_API_URL" description={`${origin}/api/${params.storeid}`} variant="public"/>
+            </div>
       )
 }
