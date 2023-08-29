@@ -29,7 +29,7 @@ type SettingsFormValues = z.infer<typeof formSchema>
 export const SettingsForm: React.FC<SettingsFormProps> = ({
       initialData
 }) => {
-      const params  = useParams();
+      const params = useParams();
       const router = useRouter();
       const [open, setOpen] = useState(false);
       const [loading, setLoading] = useState(false);
@@ -37,7 +37,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
             resolver: zodResolver(formSchema),
             defaultValues: initialData
       });
-      const onSubmit = async (data:SettingsFormValues)=>{
+      const onSubmit = async (data: SettingsFormValues) => {
             // console.log(data);
             // api calling
             try {
@@ -45,22 +45,38 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
                   await axios.patch(`/api/stores/${params.storeid}`, data);
                   router.refresh();
                   toast.success("Store Updated Successfully")
-            } catch ( error) {
+            } catch (error) {
                   toast.error("Something went wrong.");
             }
-            finally{
+            finally {
                   setLoading(false);
             }
       }
 
-      
+
+      const onDelete = async () => {
+            try {
+                  setLoading(true);
+                  await axios.delete(`/api/stores/${params.storeid}`)
+                  router.refresh();
+                  router.push('/')
+                  toast.success('Store Deleted Successfully.')
+            } catch (error) {
+                  toast.error("Make Sure you removed all the products and categories first!!!")
+            }finally{
+                  setLoading(false);
+                  setOpen(false)
+            }
+      }
+
+
       return (
             <>
                   <AlertModal
-                  isOpen={open}
-                  onClose={()=>setOpen(false)}
-                  onConfirm={()=>{}}
-                  loading={loading}
+                        isOpen={open}
+                        onClose={() => setOpen(false)}
+                        onConfirm={onDelete}
+                        loading={loading}
                   />
                   <div className="flex items-center justify-between">
                         <Heading title="Settings" description="Manage Store Settings" />
@@ -72,15 +88,15 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
                   <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
                               <div className="grid grid-cols-3 gap-8">
-                                    <FormField control={form.control} name="name" render={({field})=>(
+                                    <FormField control={form.control} name="name" render={({ field }) => (
                                           <FormItem>
                                                 <FormLabel>Name</FormLabel>
                                                 <FormControl>
-                                                      <Input disabled={loading} placeholder="Store Name"{...field}/>
+                                                      <Input disabled={loading} placeholder="Store Name"{...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                           </FormItem>
-                                    )}/>
+                                    )} />
 
                               </div>
                               <Button disabled={loading} type={"submit"}> Save Changes</Button>
