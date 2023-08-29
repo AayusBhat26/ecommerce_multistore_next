@@ -1,6 +1,39 @@
-const SettingsPage = ()=>{
+// global imports 
+import primsadb from "@/lib/prismadb";
+import { auth } from "@clerk/nextjs"
+import { redirect } from "next/navigation";
+
+
+// local imports
+import { SettingsForm } from "./components/settings-form";
+
+interface SettingsPageProps{
+      params:{
+            storeid: string,
+      }
+}
+const SettingsPage:React.FC<SettingsPageProps> = async({
+      params
+})=>{
+      const {userId} = auth();
+      if(!userId) redirect('/sign-in');
+
+      const store = await primsadb.store.findFirst({
+            where:{
+                  id:params.storeid, 
+                  userId
+            }
+      })
+      if(!store) redirect('/');
+
       return (
-            <div></div>
+            <div className="flex-col">
+                  <div className="flex-1 space-y-4 p-8 pt-6">
+                        {/* settingsform */}
+                        <SettingsForm initialData={store}/>
+                  </div>
+
+            </div>
       )
 }
 export default SettingsPage
