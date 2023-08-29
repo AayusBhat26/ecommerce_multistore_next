@@ -10,17 +10,19 @@ export default async function DashboardLayout({
       children, params
 }: {
       children: React.ReactNode,
-      params: { storeId: string }
+      params: { storeid: string }
 }) {
       const { userId } = auth();
       if (!userId) redirect('/sign-in');
-
-      const store = await primsadb.store.findFirst({
-            where: {
-                  id: params.storeId,
-                  userId: userId
+      
+      const store = await primsadb.store.findFirst(
+            {
+                  where:{
+                        id:params.storeid,
+                        userId:userId
+                  }
             }
-      })
+      )
       if (!store) redirect('/')
       return (
             <>
