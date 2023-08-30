@@ -38,7 +38,9 @@ export const BillboardForm: React.FC<BillboardFormFormProps> = ({
       const [loading, setLoading] = useState(false);
       const form = useForm<BillboardFormFormValues>({
             resolver: zodResolver(formSchema),
-            defaultValues: initialData
+            // defaultValues: initialData
+            // need to update this, ask chatgpt for solution.
+
       });
       const onSubmit = async (data: BillboardFormFormValues) => {
             // console.log(data);
