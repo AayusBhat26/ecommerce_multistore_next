@@ -13,6 +13,18 @@ model Store{
   id        String @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   userId    String @map("userId")
+  billboards Billboard[] @relation("StoreToBillboard")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+// store and billboard has a realtion. (joining both the tables)
+model Billboard {
+  store Store @relation("StoreToBillboard", fields:[storeid], references: [id])
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  storeid   String @db.ObjectId
+  label     String
+  imageUrl  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+

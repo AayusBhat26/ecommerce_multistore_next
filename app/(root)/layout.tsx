@@ -16,6 +16,7 @@ export default async function SetupLayout({
                   userId:userId
              }
       })
+      // const billboard = await primsadb.billboard
       // navigate to a particular store .
       if(store) redirect(`/${store.id}`)
 
