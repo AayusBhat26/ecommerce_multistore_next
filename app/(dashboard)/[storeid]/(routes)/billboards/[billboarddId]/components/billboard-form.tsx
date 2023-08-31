@@ -24,7 +24,8 @@ interface BillboardFormFormProps {
 }
 // form schema properties 
 const formSchema = z.object({
-      name: z.string().min(3),
+      label: z.string().min(3),
+      imageUrl: z.string().max(3)
 });
 type BillboardFormFormValues = z.infer<typeof formSchema>
 
@@ -36,9 +37,16 @@ export const BillboardForm: React.FC<BillboardFormFormProps> = ({
       const origin = useOrigin();
       const [open, setOpen] = useState(false);
       const [loading, setLoading] = useState(false);
+      const title = initialData ? "Edit Billboard" : "Create Billboard";
+      const description = initialData ? "Edit Billboard" : "Add a new billboard";
+      const toastMessage = initialData ? "Billboard Updated" : "Billboard Created";
+      const action = initialData ? "Save Changes" : "Create  Billboard";
       const form = useForm<BillboardFormFormValues>({
             resolver: zodResolver(formSchema),
-            // defaultValues: initialData
+            defaultValues: initialData ||{
+                  label:'', 
+                  imageUrl: '',
+            }
             // need to update this, ask chatgpt for solution.
 
       });
@@ -84,32 +92,34 @@ export const BillboardForm: React.FC<BillboardFormFormProps> = ({
                         loading={loading}
                   />
                   <div className="flex items-center justify-between">
-                        <Heading title="BillboardForm" description="Manage Store BillboardForm" />
-                        <Button variant={"destructive"} size={"icon"} onClick={() => { setOpen(true) }} disabled={loading}>
-                              <Trash2 className="h-4 w-4" />
-                        </Button>
+                        <Heading title={title} description={description} />
+                        {initialData && (
+                              <Button variant={"destructive"} size={"icon"} onClick={() => { setOpen(true) }} disabled={loading}>
+                                    <Trash2 className="h-4 w-4" />
+                              </Button>
+                        )}
                   </div>
                   <Separator />
                   <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
                               <div className="grid grid-cols-3 gap-8">
-                                    <FormField control={form.control} name="name" render={({ field }) => (
+                                    <FormField control={form.control} name="label" render={({ field }) => (
                                           <FormItem>
-                                                <FormLabel>Name</FormLabel>
+                                                <FormLabel>Label</FormLabel>
                                                 <FormControl>
-                                                      <Input disabled={loading} placeholder="Store Name"{...field} />
+                                                      <Input disabled={loading} placeholder="Billboard Label"{...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                           </FormItem>
                                     )} />
 
                               </div>
-                              <Button disabled={loading} type={"submit"} > Save Changes</Button>
+                              <Button disabled={loading} type={"submit"} > {action}</Button>
                         </form>
                   </Form>
                   <Separator className="mb-4 mt-4" />
                   <p className="text-sm text-gray-500">( These links are only useful when you have your own frontend service provider/s )</p>
-                  <ApiAlert title="NEXT_PUBLIC_API_URL" description={`${origin}/api/${params.storeid}`} variant="public"/>
+                  {/* <ApiAlert title="NEXT_PUBLIC_API_URL" description={`${origin}/api/${params.storeid}`} variant="public"/> */}
             </div>
       )
 }
